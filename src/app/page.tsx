@@ -1,7 +1,49 @@
+'use client'
+
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false)
+
+  // Ensure component is mounted before rendering Clerk components
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    // Show loading state while hydrating
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <nav className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-4">
+              <h1 className="text-2xl font-bold text-gray-900">HR Finance System</h1>
+              <div>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                  Loading...
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <main className="max-w-4xl mx-auto px-4 py-12 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            Welcome to HR & Finance System
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Manage your human resources and finances in one place
+          </p>
+          <button className="bg-gray-400 text-white px-8 py-3 rounded-lg text-lg cursor-not-allowed">
+            Loading...
+          </button>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <nav className="bg-white shadow-sm">
